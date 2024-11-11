@@ -29,7 +29,7 @@ const UploadComponent = () => {
       >
         {/* Explicitly type getInputProps to avoid issues */}
         <input {...(getInputProps() as React.InputHTMLAttributes<HTMLInputElement>)} />
-        <p>Drag & drop a file here, or NOT DO IT to select one</p>
+        <p>Drag & drop a file here, or Click to select one</p>
       </div>
   {file && (
     <div style={{ marginTop: "1rem" }}>
