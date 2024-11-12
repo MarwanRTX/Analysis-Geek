@@ -1,11 +1,10 @@
 // src/app/account/page.tsx
-
-"use client"; // Add this line to indicate that this is a client component
+"use client"; // Ensures this component is a client component
 
 import { useEffect, useState } from 'react';
-import { auth, database, ref } from '../../lib/firebase';
+import { auth, database, ref, child, get } from '../../lib/firebase';  // Corrected import
+
 import { onAuthStateChanged } from 'firebase/auth';
-import { get as getDatabaseData, child } from 'firebase/database';
 
 const AccountPage = () => {
   const [userData, setUserData] = useState({ username: '', email: '' });
@@ -14,8 +13,8 @@ const AccountPage = () => {
     const fetchUserData = async () => {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
-          const dbRef = ref(database);
-          const snapshot = await getDatabaseData(child(dbRef, `users/${user.uid}`));
+          const userRef = child(ref(database), `users/${user.uid}`);
+          const snapshot = await get(userRef);
           if (snapshot.exists()) {
             setUserData(snapshot.val());
           }
